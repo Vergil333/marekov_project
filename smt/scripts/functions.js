@@ -2,7 +2,7 @@ $(document).ready(function(){
   $("#snmpBtn").click(function(){
     $.ajax({
       url: "include/functions.php",
-      data: { snmp_dev_ip: $(this).val() },
+      data: { btn_snmp_dev_ip: $(this).val() },
       type: "GET",
       success: function(response) { $("#snmpDiv").html(response); }
     });
@@ -55,6 +55,28 @@ $(document).ready(function(){
       data: { customer_input_id: ciid, opt: filtered },
       type: "POST",
       success: function(response) { if(!alert(response)){window.location.reload();} }
+    });
+  });
+  $("#cstmrDelBtn").click(function(){
+    $.ajax({
+      url: "include/functions.php",
+      data: { btn_cstmr_del_id: $(this).val() },
+      type: "GET",
+      beforeSend: function() {
+        return confirm("Naozaj chcete vymazať zákazníka?");
+      },
+      success: function(response) { if(!alert(response)){window.location.href="customers.php";} }
+    });
+  });
+  $("#devDelBtn").click(function(){
+    $.ajax({
+      url: "include/functions.php",
+      data: { btn_dev_del_id: $(this).val() },
+      type: "GET",
+      beforeSend: function() {
+        return confirm("Naozaj chcete vymazať zariadenie?");
+      },
+      success: function(response) { if(!alert(response)){window.location.href="index.php";} }
     });
   });
 });

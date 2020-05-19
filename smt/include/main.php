@@ -57,6 +57,7 @@ echo <<<EOT
           <li><a href="index.php">Zariadenia</a></li>
           <li><a href="customers.php">Zákazníci</a></li>
           <li><a href="tools.php">Nástroje</a></li>
+          <li><a href="reports.php">Reporty</a></li>
           <li><a href="about.php">INFO</a></li>
         </ul>
       </nav>

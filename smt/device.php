@@ -3,8 +3,11 @@
 try {
   $conn = pdo_connect_mysql();
   $stmt = $conn->prepare("SELECT * FROM device WHERE id=?;");
+  $stmtUsed = $conn->prepare("SELECT id, name, measured FROM customer WHERE id IN (SELECT customer_id FROM customer_input WHERE device_id=?);");
   $stmt->execute([htmlspecialchars($_GET["id"])]);
+  $stmtUsed->execute([htmlspecialchars($_GET["id"])]);
   $data = $stmt->fetch(PDO::FETCH_ASSOC);
+  $dataUsed = $stmtUsed->fetchAll(PDO::FETCH_ASSOC);
 }
 catch(PDOException $e) {
   echo $e->getMessage();
@@ -86,6 +89,24 @@ catch(PDOException $e) {
 
       <h4>Detaily</h4>
       <div id="snmpDiv"><button id="snmpBtn" value="<?=$data["ip"] ?>">Zobraziť</button></div>
+
+      <hr>
+
+      <h4>Použité u zákazníka</h4>
+      <table>
+        <tr>
+          <th>ID</th>
+          <th>Názov</th>
+          <th>Meraný</th>
+        </tr>
+<?php foreach ($dataUsed as $key=>$value): ?>
+        <tr>
+          <td><?=$value["id"]; ?></td>
+          <td><?php echo '<a href="customer.php?id='.$value["id"].'">'.$value["name"].'</a>'; ?></td>
+          <td><?php echo ($value["measured"]) ? utf8_encode("&#x2714;") : utf8_encode("&#x274c;"); ?></td>
+        </tr>
+<?php endforeach; ?>
+      </table>
 
       <hr>
 

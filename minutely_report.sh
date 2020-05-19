@@ -54,9 +54,10 @@ do
   fi
 
 # MySQL options
+# -s Silent
 # -N Skip column names
 # -B Batch output
-# -e expression
+# -e Expression
 
 # Pripojime sa na databazu a vykoname set prikazov.
 # Dane prikazy zacinaju hned od kraja dokumentu z 0 pozicie koli EOF

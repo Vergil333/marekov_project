@@ -17,9 +17,11 @@ catch(PDOException $e) {
 <?php template_header('Tools') ?>
 
     <main>
-      <h3>Spravovať zákazníkov</h3>
+      <h2>Spravovať zákazníkov</h2>
+
       <hr>
-      <h4>Pridať zákazníka</h4>
+
+      <h3>Pridať zákazníka</h3>
       <form id="cstmrAdd">
         <label for="cstmrName">Názov:</label>
         <input type="text" id="cstmrName" name="customer_name">
@@ -27,7 +29,7 @@ catch(PDOException $e) {
         <input type="checkbox" id="cstmrAct" name="customer_active">
         <input type="submit" value="Pridať">
       </form>
-      <h4>Odstrániť zákazníka</h4>
+      <h3>Odstrániť zákazníka</h3>
       <form id="cstmrDel">
         <label for="cstmrSlctId">Zákazník:</label>
         <select id="cstmrSlctId" name="customer_select_id">
@@ -37,17 +39,21 @@ catch(PDOException $e) {
         </select>
         <input type="submit" value="Odstrániť">
       </form>
+
       <hr>
-      <h3>Spravovať zariadenia</h3>
+
+      <h2>Spravovať zariadenia</h2>
+
       <hr>
-      <h4>Pridať zariadenie</h4>
+
+      <h3>Pridať zariadenie</h3>
       <form id="devAdd">
         <label for="devName">Názov:</label><input type="text" id="devName" name="device_name">
         <label for="devIP">IP:</label><input type="text" id="devIP" name="device_ip">
         <label for="devAct">Aktívne:</label><input type="checkbox" id="devAct" name="device_active">
         <input type="submit" value="Pridať">
       </form>
-      <h4>Odstrániť zariadenie</h4>
+      <h3>Odstrániť zariadenie</h3>
       <form id="devDel">
         <label for="devSlct">Zariadenie:</label>
         <select id="devSlct" name="device_select_id">

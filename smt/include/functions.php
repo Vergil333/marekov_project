@@ -18,8 +18,8 @@ function pdo_connect_mysql() {
 }
 
 // This is SNMP request table constructor
-if (isset($_GET['snmp_dev_ip']) && !empty($_GET['snmp_dev_ip'])) {
-  exec('snmpwalk -Oqv -v 1 -c sdsxpublic '.$_GET["snmp_dev_ip"].' 2>&1', $retArr);
+if (isset($_GET['btn_snmp_dev_ip']) && !empty($_GET['btn_snmp_dev_ip'])) {
+  exec('snmpwalk -Oqv -v 1 -c sdsxpublic '.$_GET["btn_snmp_dev_ip"].' 2>&1', $retArr);
   $desc = array("System Description", "System Object ID", "System Uptime", "System Contact", "System Name", "System Location", "System Services", "Interface Number", "Interface Index", "Interface Description", "Interface Type", "Interface MTU", "Interface Speed", "Interface Physical Address", "Interface Admin Status", "Interface Operation Status", "Interface Last Change", "Interface Rx Octets", "Interface Rx Unicast Packets", "Interface Rx Multicast Packets", "Interface Rx Discarded Packets", "Interface Rx Errors", "Interface Rx Unknown Protocols", "Interface Tx Octets", "Interface Tx Unicast Packets", "Interface Tx Multicast Packets", "Interface Tx Discarded Packets", "Interface Tx Errors", "Interface Tx Queue Length", "Interface MIB Specific", "IP Forwarding State", "IP Rx Packets", "IP Rx Header Errors", "IP Rx Address Errors", "IP Rx Unknown Protocols", "IP Rx Discarded Packets", "IP Tx Requests", "IP Address", "IP Index", "IP Network Mask", "Rx ICMP", "Rx ICMP Errors", "Tx ICMP", "Hardware System Uptime", "Hardware System Number of Users", "Hardware Device Index", "Hardware Device Type", "Hardware Device Description", "Hardware Processor ID", "Hardware Processor Load");
   echo '<table style="text-align: left">'."\n";
   foreach ($retArr as $retDesc => $retVal) {
@@ -34,7 +34,7 @@ if (isset($_GET['snmp_dev_ip']) && !empty($_GET['snmp_dev_ip'])) {
 if (isset($_GET['customer_id']) && !empty($_GET['customer_id'])) {
   $conn = pdo_connect_mysql();
   $stmt = $conn->prepare("SELECT customer_input.id, customer_input.device_id, device.ip, customer_input.opt1, customer_input.opt2, customer_input.opt3, customer_input.customer_id FROM customer_input INNER JOIN device ON customer_input.device_id=device.id WHERE customer_input.customer_id=?;");
-  $stmtDev = $conn->prepare("SELECT device.id, device.ip FROM device LEFT JOIN customer_input ON device.id=customer_input.device_id WHERE customer_input.customer_id IS NULL OR customer_input.customer_id!=?;");
+  $stmtDev = $conn->prepare("SELECT id, ip FROM device WHERE id NOT IN (SELECT device_id FROM customer_input WHERE customer_id=?);");
   try {
     $stmt->execute([$_GET["customer_id"]]);
     $stmtDev->execute([$_GET["customer_id"]]);
@@ -102,10 +102,16 @@ EOT;
 }
 
 // Device delete button
-//if (isset($_POST['delete_dev_id']) && !empty($_POST['delete_dev_id'])) {
-//  echo TEST;
-//}
+if (isset($_GET['btn_dev_del_id']) && !empty($_GET['btn_dev_del_id'])) {
+  device_del($_GET['btn_dev_del_id']);
+}
 
+// Customer delete button
+if (isset($_GET['btn_cstmr_del_id']) && !empty($_GET['btn_cstmr_del_id'])) {
+  customer_del($_GET['btn_cstmr_del_id']);
+}
+
+// Customer device inputs update field
 if (isset($_POST['customer_input_id']) && !empty($_POST['customer_input_id'])) {
   foreach ($_POST['customer_input_id'] as $key => $val) {
     $id = $val['value'];

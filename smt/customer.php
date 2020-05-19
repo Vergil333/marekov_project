@@ -4,7 +4,7 @@ try {
   $conn = pdo_connect_mysql();
   $stmt = $conn->prepare("SELECT * FROM customer WHERE id=?;");
   $stmtSDS = $conn->prepare("SELECT device.id, device.ip, customer_input.opt1, customer_input.opt2, customer_input.opt3, device.s0_1_kwh, device.s0_2_kwh, device.s0_3_kwh FROM customer_input INNER JOIN device ON customer_input.device_id=device.id WHERE customer_input.customer_id=?;");
-  $stmtTotal = $conn->prepare("SELECT SUM(CASE customer_input.opt1 WHEN 1 THEN device.s0_1_kwh ELSE 0 END) + SUM(CASE customer_input.opt2 WHEN 1 THEN device.s0_2_kwh ELSE 0 END) + SUM(CASE customer_input.opt3 WHEN 1 THEN device.s0_3_kwh ELSE 0 END) AS total FROM device INNER JOIN customer_input ON device.id=customer_input.device_id WHERE customer_input.customer_id=?;");
+  $stmtTotal = $conn->prepare("SELECT SUM(CASE customer_input.opt1 WHEN 1 THEN device.s0_1_kwh ELSE 0 END) + SUM(CASE customer_input.opt2 WHEN 1 THEN device.s0_2_kwh ELSE 0 END) + SUM(CASE customer_input.opt3 WHEN 1 THEN device.s0_3_kwh ELSE 0 END) AS total_kwh FROM device INNER JOIN customer_input ON device.id=customer_input.device_id WHERE customer_input.customer_id=?;");
   $stmt->execute([htmlspecialchars($_GET["id"])]);
   $stmtSDS->execute([htmlspecialchars($_GET["id"])]);
   $stmtTotal->execute([htmlspecialchars($_GET["id"])]);
@@ -64,11 +64,15 @@ catch(PDOException $e) {
 <?php endforeach; ?>
           <tr>
             <th>Spolu</th>
-            <td colspan="3"><?=$dataTotal["total"]; ?> kWh</td>
+            <td colspan="3"><?=$dataTotal["total_kwh"]; ?> kWh</td>
           </tr>
         </table>
         <button id="cstmrInputEditBtn" value="<?=$data["id"] ?>">Upraviť</button>
       </div>
+
+      <hr>
+
+      <h4>Spotreba mesačne</h4>
 
       <hr>
 

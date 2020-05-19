@@ -6,16 +6,13 @@
       <ul>
         <li>Pridať vyťaženosť SDS jednotlivých vstupov na hlavnej stránke. POWER TRESHOLD indikátor na jednotlivých optočlenoch</li>
         <li>Spraviť vykresľovanie grafov ako sú vyťažené fázy za posledné 2 mesiace</li>
-        <li>Načítať stránku a cez ajax len volať php scripty, ktoré budú vykresľovať obsah. Takto docielime efekt automatického updatu stránky</li>
+        <li>Automatický update hodnôt na stránke</li>
         <li>POZOR!!! Opraviť kritickú zraniteľnosť v include/functions.php pri spúšťaní exec príkazu! Možnosť spúšťať príkazy!!!!</li>
-        <li>Keď v nástrojoch kliknem pridať/zmazať zákazníka, tak na pravo bude float box, kde sa tieto akcie budú vypisovať.</li>
-        <li>Potvrdzovacie okno pri mazaní device/customer</li>
+        <li>Keď v nástrojoch kliknem pridať/zmazať zákazníka, tak vpravo bude float box, kde sa tieto akcie budú vypisovať. Namiesto alert boxov</li>
         <li>Možnosť vynulovania počítadla na SDS odoslaním snmp príkazu</li>
-        <li>Keď zobrazím SDS, tak ukáže pre ktorých zákazníkov je daná SDS priradená</li>
-        <li>Po kliknutí na device sa zobrazí aj tabuľka, ktorý zákazníci používajú dané zariadenie</li>
       </ul>
       <h2>Ako nainštalovať stránku</h2>
-      <p>TBA</p>
+      <p>ToBeDone</p>
       <h2>INFO</h2>
       <dl>
         <dt>Ako funguje stránka?</dt>
@@ -62,6 +59,6 @@
         <dt>Prečo je všade použité _GET a nie _POST? Nie je _POST bezpečnejšie?</dt>
         <dd>Aby sa prehliadač nepýtal pri refresh stránky či znova odoslať data. POST je bezpečnejší ale v tomto prípade je to jedno, nerobíme registráciu užívateľa, kde by bolo viditeľné heslo. V prípade núdze sa to dá ľahko prerobiť na POST.</dd>
       </dl>
-      <h1>PROBLÉMY S DATABÁZOU? <a href="adminer-4.7.6.php">KLIKNI TU!</a></h1>
+      <h1>PROBLÉMY S DATABÁZOU? <a href="include/adminer-4.7.6.php">KLIKNI TU!</a></h1>
     </main>
 <?php template_footer() ?>

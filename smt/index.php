@@ -22,10 +22,10 @@ catch(PDOException $e) {
       <p>Pri zariadeniach zvýraznených červenou farbou došlo k chybe pri komunikácii.</p>
       <table align="center" style="text-align: center; width: 80%">
         <tr>
-          <th>Active</th>
+          <th>Atívne</th>
           <th>IP</th>
-          <th>Actual Power [kWh]</th>
-          <th>Total Power [kW]</th>
+          <th>Aktuálna spotreba [kWh]</th>
+          <th>Celková spotreba [kW]</th>
         </tr>
 <?php foreach ($data as $key=>$value): ?>
         <tr>
